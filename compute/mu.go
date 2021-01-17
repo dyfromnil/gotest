@@ -2,9 +2,10 @@ package compute
 
 import "fmt"
 
+// Mut for gorutine test
 func Mut(n int, ans chan int) {
 	for i := 0; i < n; i++ {
-		fmt.Println("gorutine:", i, "start")
+		fmt.Println("gorutine----:", i, "start")
 		go func() {
 			var a int
 			var b int
