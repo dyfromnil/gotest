@@ -3,6 +3,7 @@ package main
 import "fmt"
 import "time"
 import "runtime"
+import "github.com/dyfromnil/gotest/compute"
 
 func main() {
 	var after <-chan time.Time
@@ -38,23 +39,11 @@ endFor:
 	cpus := runtime.NumCPU()
 	runtime.GOMAXPROCS(cpus)
 
-	n := 30
+	n := 3
 
 	fmt.Println("begin computing...")
-	for i := 0; i < n; i++ {
-		fmt.Println("gorutine:", i, "start")
-		go func() {
-			var a int
-			var b int
-			for j := 0; j < 9999; j++ {
-				for i := 0; i < 9999999; i++ {
-					a = i*i + i
-				}
-				b = a
-			}
-			ans <- b
-		}()
-	}
+
+	compute.Mut(n, ans)
 
 	for i := 0; i < n; i++ {
 		r := <-ans
